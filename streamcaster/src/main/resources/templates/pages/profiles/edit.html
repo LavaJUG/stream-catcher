@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <title>Stream Catcher</title>
+        <link href="/resources/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="/resources/fontawesome/css/fontawesome.css" rel="stylesheet"/>
+        <link href="/resources/css/sb-admin.css" rel="stylesheet"/>
+
+    </head>
+
+    <body>
+
+        <div id="page-wrapper-no-title" th:fragment="content">
+
+            <div class="row">
+
+                <div class="col-lg-2">
+                    <div th:replace="menu :: menu"></div>
+                </div>            
+
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-camera fa-fw"></i> Profile Configuration
+                        </div>
+                        <div class="panel-body">
+                            <div class="alert alert-dismissable alert-warning" th:if="${inUse}">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <strong>Warning!</strong> This profile is currently in use.
+                            </div>                            
+                            <div class="form-group col-lg-10">
+                                <h4 th:text="${pro.name}">Profile's name</h4>
+                            </div> 
+                            <div class="col-lg-10" th:if="${not pro.layers.isEmpty()}">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Source</th>
+                                            <th>Top</th>
+                                            <th>Left</th>
+                                            <th>Width</th>
+                                            <th>Height</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="layer : ${pro.layers}">
+                                            <td th:text="${layer.name}">Moi</td>
+                                            <td th:text="${layer.sourceName}">webcam</td>
+                                            <td th:text="${layer.top}">10</td>
+                                            <td th:text="${layer.left}">10</td>
+                                            <td th:text="${layer.width}">100</td>
+                                            <td th:text="${layer.height}">250</td>
+                                            <td>
+                                                <a th:href="'/profiles/layers/up?name='+${pro.name}+'&amp;layerName='+${layer.name}"><i class="fa fa-caret-square-o-up fa-fw"></i></a>
+                                                <a th:href="'/profiles/layers/down?name='+${pro.name}+'&amp;layerName='+${layer.name}"><i class="fa fa-caret-square-o-down fa-fw"></i></a>
+                                                <a href="#" data-toggle="modal" th:attr="data-target='#edit-layer-'+${layer.name.hashCode()}"><i class="fa fa-pencil fa-fw"></i></a>
+                                                <a href="#" data-toggle="modal" th:attr="data-target='#del-layer-'+${layer.name.hashCode()}"><i class="fa fa-times fa-fw"></i></a>
+                                            </td>
+                                        </tr>                                        
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                            <div class="text-right col-lg-10">
+                                <a href="#" class="btn btn-success " data-toggle="modal" data-target="#add-layer">Add a layers</a>
+                            </div>
+
+
+                            <div class="form-group col-lg-10">                                    
+                                <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#del-profile">Delete</a>
+                            </div>
+
+                        </div>  
+
+                    </div>
+
+                    <div th:each="layer : ${pro.layers}" class="modal fade in" th:id="'edit-layer-'+${layer.name.hashCode()}" tabindex="-1" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+
+
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title"><i class="fa fa-camera fa-fw"></i> Add a layer</h4>                                                                        
+                                </div>
+                                <form th:action="'/profiles/layers/add?name='+${pro.name}" method="post" novalidate="novalidate">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="name">Layer's name</label>
+                                            <input name="name" class="form-control" placeholder="Enter text" th:value="${layer.name}" required="true"/>
+                                        </div>                             
+                                        <div class="form-group">
+                                            <label for="source">Source</label>
+                                            <select name="source" class="form-control" required="true">
+                                                <option></option>
+                                                <option th:each="source : ${sourceManager.sourceNames}" th:text="${source}" th:selected="${source eq layer.sourceName}">Speaker</option>
+                                            </select>
+                                        </div>						
+                                        <div class="form-group">
+                                            <label for="top">Top</label>
+                                            <input name="top" class="form-control" placeholder="Enter a number"  th:value="${layer.top}" required="true"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="left">Left</label>
+                                            <input name="left" class="form-control" placeholder="Enter a number"  th:value="${layer.left}" required="true"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="width">Width</label>
+                                            <input name="width" class="form-control" placeholder="Enter a number"  th:value="${layer.width}" required="true"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="height">Height</label>
+                                            <input name="height" class="form-control" placeholder="Enter a number" th:value="${layer.height}" required="true"/>
+                                        </div> 
+
+                                    </div>
+                                    <div class="modal-body">                           
+                                        <button type="submit" class="btn btn-success">Save</button>        
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                                
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>                            
+                    </div>
+
+
+                    <div class="modal fade in" id="del-profile" tabindex="-1" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title" id="myModalLabel">Delete profile</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Do you relay want to delete this profile?
+                                </div>
+                                <form role="form" th:action="'/profiles/delete?name='+${pro.name}" method="post">
+                                    <div class="modal-footer">
+                                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:each="layer : ${pro.layers}" class="modal fade in" th:id="'del-layer-'+${layer.name.hashCode()}" tabindex="-1" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title" id="myModalLabel">Delete leyer</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Do you relay want to delete this layer?
+                                </div>
+                                <form role="form" th:action="'/profiles/layers/delete?name='+${pro.name}+'&amp;layerName='+${layer.name}" method="post">
+                                    <div class="modal-footer">
+                                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>                        
+                    </div>
+
+                    <div class="modal fade" id="add-layer" tabindex="-1" role="dialog" >
+
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+
+
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title"><i class="fa fa-camera fa-fw"></i> Add a layer</h4>                                                                        
+                                </div>
+                                <form th:action="'/profiles/layers/add?name='+${pro.name}" method="post" novalidate="novalidate">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="name">Layer's name</label>
+                                            <input name="name" class="form-control" placeholder="Enter text" required="true"/>
+                                        </div>                             
+                                        <div class="form-group">
+                                            <label for="source">Source</label>
+                                            <select name="source" class="form-control" required="true">
+                                                <option></option>
+                                                <option th:each="source : ${sourceManager.sourceNames}" th:text="${source}">Speaker</option>
+                                            </select>
+                                        </div>						
+                                        <div class="form-group">
+                                            <label for="top">Top</label>
+                                            <input name="top" class="form-control" placeholder="Enter a number" required="true"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="left">Left</label>
+                                            <input name="left" class="form-control" placeholder="Enter a number" required="true"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="width">Width</label>
+                                            <input name="width" class="form-control" placeholder="Enter a number" required="true"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="height">Height</label>
+                                            <input name="height" class="form-control" placeholder="Enter a number" required="true"/>
+                                        </div> 
+
+                                    </div>
+                                    <div class="modal-body">                                          
+                                        <button type="submit" class="btn btn-success">Add</button>             
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                                
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>                                
+                    </div>                            
+
+                </div>
+                <div class="col-lg-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-picture-o fa-fw"></i> Preview
+                        </div>
+
+                        <div class="panel-body">
+                            <img style="width:100%;background:#aaa;" id="image"/>
+                        </div>
+
+                    </div>
+                </div>            
+
+            </div>
+
+        </div>
+
+
+    </body>
+
+</html>

@@ -1,0 +1,56 @@
+{
+    "output": {
+        "device": "/dev/video1",
+        "width": "1024",
+        "height": "768",
+        "fps" : "20"
+    },
+    "layers": [
+        {
+            "name": "background",
+            "x": "0",
+            "y": "0",
+            "width": "1024",
+            "height": "768",
+            "source": {
+                "type": "image",
+                "file": "src/main/resources/background.png"
+            }            
+        }, 
+        {
+            "name": "title",
+            "x": "10",
+            "y": "250",
+            "width": "200",
+            "height": "415",
+            "source": {
+                "type": "image",
+                "file": "src/main/resources/title.png"
+            }            
+        },         
+        {
+            "name": "desktop",
+            "x": "230",
+            "y": "100",
+            "width": "765",
+            "height": "565",            
+            "source": {
+                "type": "remote",
+                "url": "http://127.0.0.1:8000/screens/1"
+            }            
+        },  
+        {
+            "name": "speaker",
+            "x": "10",
+            "y": "100",
+            "width": "200",
+            "height": "140",
+            "source": {
+                "type": "webcam",
+                "number": "0",
+                "width": "320",
+                "height": "200"
+            }            
+        }        
+    ]
+}

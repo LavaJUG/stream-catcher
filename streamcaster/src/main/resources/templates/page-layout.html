@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <title>Stream Catcher</title>
+        <link href="/resources/css/bootstrap.min.css" rel="stylesheet"/>   
+        <link href="/resources/fontawesome/css/fontawesome.css" rel="stylesheet"/>
+        <link href="/resources/css/main.css" rel="stylesheet"/>
+
+    </head>
+
+    <body>
+
+        <div id="wrapper">
+
+            <nav th:replace="navbar :: navbar"></nav>
+            <div id="page-wrapper-no-title" th:replace="'pages'+${page} :: content"></div>
+            <footer class="text-center">
+                <p>&copy; 2014 LavaJUG &middot; <a href="#">Terms</a></p>
+            </footer>            
+
+        </div>
+        <script src="/resources/js/jquery-1.10.2.js"></script>
+        <script src="/resources/js/bootstrap.min.js"></script>
+        <script src="/resources/js/parsley.min.js"></script>        
+        <script src="/resources/js/main.js"></script>       
+
+
+        <script type="text/javascript" th:inline="javascript">
+                    //<![CDATA[
+                    var ws = null;
+                    function ready() {
+                    ws = new WebSocket('ws://' + window.location.hostname + ':' + window.location.port + '/socket');
+                            ws.onopen = function() {
+                            ws.send([[${section} + ':' + ${current}]]);
+                            };
+                            ws.onclose = function() {
+                            setTimeout(ready, 1000);
+                            };
+                            ws.onerror = function(error) {
+                            if (window.console && window.console.log) {
+                            console.log("Error cttching live stream.");
+                            }
+                            };
+                            ws.onmessage = function(content) {
+                            $("#image").attr('src', 'data:image/jpg;base64,' + content.data);
+                            };
+                    }
+
+            document.addEventListener("DOMContentLoaded", ready, false);
+                    //]]>
+        </script>
+
+    </body>
+
+</html>

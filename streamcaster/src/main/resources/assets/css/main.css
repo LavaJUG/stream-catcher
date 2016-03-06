@@ -1,0 +1,17 @@
+
+#page-wrapper-no-title {
+    margin: 70px 10px 10px 10px; 
+    min-height: 1000px;
+}
+
+.left-menu {
+ border : none;   
+}
+
+.sub-menu a{
+    margin-left: 10px;
+}
+
+footer{
+    min-height: 50px;
+}

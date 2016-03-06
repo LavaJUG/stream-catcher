@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <title>Stream Catcher</title>
+        <link href="/resources/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="/resources/fontawesome/css/fontawesome.css" rel="stylesheet"/>
+        <link href="/resources/css/sb-admin.css" rel="stylesheet"/>
+
+    </head>
+
+    <body>
+        
+                <div class="panel-group" th:fragment="menu">
+
+                        <div class="panel panel-default left-menu">
+                            <a th:class="${section eq 'LIVE'} ? 'list-group-item active' : 'list-group-item'" class="list-group-item" href="/"><i class="fa fa-video-camera fa-fw"></i> Live Stream</a>
+                        </div>
+
+                        <div class="panel panel-default left-menu">
+                            <a href="#sources" data-toggle="collapse" th:class="${section eq 'SOURCES'} ? 'list-group-item active' : 'list-group-item'"><i class="fa fa-camera fa-fw"></i> Sources<span class="fa arrow"></span></a>
+                            <div class="panel-collapse collapse" th:class="${section eq 'SOURCES'} ? 'panel-collapse active' : 'panel-collapse collapse'" id="sources">
+                                <div class="panel-body">
+                                    <a th:each="source : ${sourceManager.sourceNames}" th:class="${section eq 'SOURCES' and current eq source} ? 'list-group-item active' : 'list-group-item'" th:href="'/sources/edit?name='+${source}" th:text="${source}"></a>
+                                    <a href="/sources/add" class="list-group-item">Add...</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="panel panel-default left-menu">
+                            <a href="#profiles" data-toggle="collapse" th:class="${section eq 'PROFILES'} ? 'list-group-item active' : 'list-group-item'"><i class="fa fa-picture-o fa-fw"></i> Profiles<span class="fa arrow"></span></a>
+                            <div class="panel-collapse collapse" id="profiles" th:class="${section eq 'PROFILES'} ? 'panel-collapse active' : 'panel-collapse collapse'">
+                                <div class="panel-body">
+                                    <a th:each="profile : ${profileManager.profileNames}" th:class="${section eq 'PROFILES' and current eq profile} ? 'list-group-item active' : 'list-group-item'" th:href="'/profiles/edit?name='+${profile}" th:text="${profile}"></a>
+                                    <a href="/profiles/add" class="list-group-item">Add...</a>
+                                </div>
+                            </div>
+                        </div>                        
+                        
+                    </div>        
+
+    </body>
+
+</html>

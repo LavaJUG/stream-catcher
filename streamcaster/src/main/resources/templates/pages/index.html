@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <title>Stream Catcher</title>
+        <link href="/resources/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="/resources/fontawesome/css/fontawesome.css" rel="stylesheet"/>
+        <link href="/resources/css/sb-admin.css" rel="stylesheet"/>
+
+    </head>
+
+    <body>
+
+        <div id="page-wrapper-no-title" th:fragment="content">
+
+            <div class="row">
+
+                <div class="col-lg-2">
+                    <div th:replace="menu :: menu"></div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-video-camera fa-fw"></i> Live rendering
+                        </div>
+
+                        <div class="panel-body">
+                            <img id="image" style="background: #aaa; width:100%;"/>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-picture-o fa-fw"></i> Profiles
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <a href="#" class="list-group-item set-profile" th:each="profile : ${profileManager.profileNames}" th:attr="data-set-profile=${profile}" th:class="${profile eq current ? 'list-group-item set-profile active' : 'list-group-item set-profile'}">
+                                    <i th:class="${profile eq current ? 'fa fa-play fa-fw' : 'fa fa-pause fa-fw'}"></i> 
+                                    <span th:text="${profile}"></span>
+                                </a>
+                            </div>
+                            <div th:if="${profileManager.profileNames.isEmpty()}" class="text-right">
+                                <a href="/profiles/add" class="btn btn-success " >Add a profile</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-youtube-play  fa-fw"></i> Output
+                        </div>
+                        <div class="panel-body">
+                            <form role="form" action="/start" method="post" novalidate="novalidate">                                
+                                <div class="form-group col-lg-10" th:if="${not isWindows}">
+                                    <label for="device">Device</label>
+                                    <select name="device" class="form-control" id="type-select" required="true" th:disabled="${outputManager.isRunning()}">
+                                        <option></option>
+                                        <option th:each="device : ${devices}" th:text="${device}" th:selected="${outputManager.device eq device}"></option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-10">                                                                        
+                                    <button type="submit" class="btn btn-success" th:if="${not outputManager.isRunning()}"><i class="fa fa-play  fa-fw"></i> Start</button>                                   
+                                    <a class="btn btn-danger" href="/stop" th:if="${outputManager.isRunning()}"><i class="fa fa-stop  fa-fw"></i> Stop</a>
+                                </div>
+                            </form>  
+                        </div>
+                    </div>                    
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-cog fa-fw"></i> Configuration
+                        </div>
+                        <div class="panel-body">
+                            <form role="form" action="/config/upload" method="post" enctype="multipart/form-data" novalidate="novalidate">
+                                <div class="form-group col-lg-10">
+                                    <label for="file">Load configuration file</label>
+                                    <input type="file" name="file" required="true"/>
+                                </div>
+                                <div class="form-group col-lg-10">                                                                        
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-download fa-fw"></i> Load</button>                                   
+                                    <a class="btn btn-default" href="/config/download" target="_blank"><i class="fa fa-upload fa-fw"></i> Export</a>
+                                </div>
+                            </form>  
+                        </div>
+                    </div>                       
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </body>
+
+</html>

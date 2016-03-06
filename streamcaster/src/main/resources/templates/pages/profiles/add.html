@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <title>Stream Catcher</title>
+        <link href="/resources/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="/resources/fontawesome/css/fontawesome.css" rel="stylesheet"/>
+        <link href="/resources/css/sb-admin.css" rel="stylesheet"/>
+
+    </head>
+
+    <body>
+
+        <div id="page-wrapper-no-title" th:fragment="content">
+
+            <div class="row">
+
+                <div class="col-lg-2">
+                    <div th:replace="menu :: menu"></div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-camera fa-fw"></i> Profile Configuration
+                        </div>
+                        <div class="panel-body">
+                            <form role="form" action="/profiles/add" method="post" novalidate="novalidate">
+                                <div class="form-group col-lg-10">
+                                    <label for="name">Profile's name</label>
+                                    <input name="name" class="form-control" placeholder="Enter text" required="true"/>
+                                </div>                                
+                                <div class="form-group col-lg-10">                                    
+                                    <button type="submit" class="btn btn-success">Add</button>
+                                </div>
+                            </form>                            
+                        </div>  
+
+                    </div>
+
+                    <!--
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-camera fa-fw"></i> Add a layer
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group col-lg-10">
+                                <label for="name">Layer's name</label>
+                                <input name="name" class="form-control" placeholder="Enter text"/>
+                            </div>                             
+                            <div class="form-group col-lg-10">
+                                <label>Source</label>
+                                <select class="form-control">
+                                    <option></option>
+                                    <option th:each="source : ${sourceManager.sourceNames}" th:text="${source}">Speaker</option>
+                                </select>
+                            </div>						
+                            <div class="form-group col-lg-3">
+                                <label>Top</label>
+                                <input class="form-control" placeholder="Enter a number"/>
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label>Left</label>
+                                <input class="form-control" placeholder="Enter a number"/>
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label>Width</label>
+                                <input class="form-control" placeholder="Enter a number"/>
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label>Height</label>
+                                <input class="form-control" placeholder="Enter a number"/>
+                            </div> 
+                            <div class="form-group col-lg-10">                                    
+                                <button type="submit" class="btn btn-success">Add</button>
+                            </div>                            
+                        </div>
+                    </div>
+                    -->
+                </div>
+                <div class="col-lg-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-picture-o fa-fw"></i> Preview
+                        </div>
+
+                        <div class="panel-body">
+                            <div style="width:320px;height:200px;background:#aaa;margin: 0 auto;">
+                            </div>                
+                        </div>
+
+                    </div>
+                </div>            
+
+            </div>
+
+        </div>
+
+
+    </body>
+
+</html>

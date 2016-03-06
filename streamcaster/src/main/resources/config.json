@@ -1,0 +1,145 @@
+{
+    "server":{
+        "profile":"slides prefered",
+        "port":8080  
+    },
+    "output": {
+        "device": "/dev/video1",
+        "width": 1024,
+        "height": 768,
+        "fps": 15
+    },
+    "sources": [
+        {
+            "name": "background",
+            "type": "image",
+            "config": {
+                "file": "images/background.png"
+            }
+        },
+        {
+            "name": "speaker",
+            "type": "webcam",
+            "config": {
+                "number": 0,
+                "width": 640,
+                "height": 480
+            }
+        },
+        {
+            "name": "slides",
+            "type": "remote",
+            "config": {
+                "url": "http://192.168.1.2:8000/screens/1"
+            }
+        },
+        {
+            "name": "desktop",
+            "type": "screen",
+            "config": {
+                "display": 1
+            }
+        },
+        {
+            "name": "title",
+            "type": "image",
+            "config": {
+                "file": "src/main/resources/title.png"
+            }
+        }
+    ],
+    "profiles": [
+        {
+            "name": "slides only",
+            "layers": [
+                {
+                    "source": "slides",
+                    "top": 0,
+                    "left": 0,
+                    "width": 1024,
+                    "height": 768
+                }
+
+            ]
+        },
+        {
+            "name": "speaker only",
+            "layers": [
+                {
+                    "source": "speaker",
+                    "top": 0,
+                    "left": 0,
+                    "width": 1024,
+                    "height": 768
+                }
+
+            ]
+        },
+        {
+            "name": "slides prefered",
+            "layers": [
+                {
+                    "source": "background",
+                    "left": 0,
+                    "top": 0,
+                    "width": 1024,
+                    "height": 768
+                },
+                {
+                    "source": "title",
+                    "left": 10,
+                    "top": 250,
+                    "width": 200,
+                    "height": 415
+                },
+                {
+                    "source": "slides",
+                    "left": 230,
+                    "top": 100,
+                    "width": 765,
+                    "height": 565
+                },
+                {
+                    "source": "speaker",
+                    "left": 10,
+                    "top": 100,
+                    "width": 200,
+                    "height": 140
+                }
+            ]
+        },
+        {
+            "name": "speaker prefered",
+            "layers": [
+                {
+                    "source": "background",
+                    "left": 0,
+                    "top": 0,
+                    "width": 1024,
+                    "height": 768
+                },
+                {
+                    "source": "title",
+                    "left": 10,
+                    "top": 250,
+                    "width": 200,
+                    "height": 415
+                },
+                {
+                    "source": "speaker",
+                    "left": 230,
+                    "top": 100,
+                    "width": 765,
+                    "height": 565
+                },
+                {
+                    "source": "slides",
+                    "left": 10,
+                    "top": 100,
+                    "width": 200,
+                    "height": 140
+                }
+            ]
+        }
+    ]
+}

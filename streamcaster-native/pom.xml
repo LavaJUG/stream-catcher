@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.lavajug</groupId>
+        <artifactId>stream-catcher</artifactId>	
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>streamcaster-native</artifactId>
+    <packaging>so</packaging>
+    <name>Stream Caster Native</name>
+
+    <url></url>
+        
+    
+    <build>
+        <plugins>
+	  <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>native-maven-plugin</artifactId>
+            <version>1.0-alpha-8</version>
+            <extensions>true</extensions>
+            <configuration>
+	      <sources>
+                <source>
+                  <directory>src</directory>
+                  <fileNames>
+		    <fileName>streamcatcher.c</fileName>
+		  </fileNames>
+	        </source>
+	      </sources>
+	      <compilerStartOptions>
+		<compilerStartOption>-fPIC -Wall -Wextra -O2 -g</compilerStartOption>
+	      </compilerStartOptions>
+              <linkerStartOptions>
+                <linkerStartOption>-shared</linkerStartOption> 
+              </linkerStartOptions>
+            </configuration>
+          </plugin>
+        </plugins>
+    </build>
+    
+</project>

@@ -1,0 +1,167 @@
+{  
+  "profiles":[  
+    {  
+      "layers":[  
+        {  
+          "height":528,
+          "source":"Starting Picture",
+          "width":1004,
+          "name":"Starting Panel",
+          "left":10,
+          "top":115
+        }
+      ],
+      "name":"Starting Panel"
+    },    
+    {  
+      "layers":[  
+        {  
+          "height":528,
+          "source":"Waiting Picture",
+          "width":1004,
+          "name":"Waiting Panel",
+          "left":10,
+          "top":115
+        }
+      ],
+      "name":"Waiting Panel"
+    },  
+    {  
+      "layers":[  
+        {  
+          "height":528,
+          "source":"Sponsors Picture",
+          "width":1004,
+          "name":"Sponsors Panel",
+          "left":10,
+          "top":115
+        }
+      ],
+      "name":"Sponsors Panel"
+    },      
+    {  
+      "layers":[  
+        {  
+          "height":550,
+          "source":"LavaJUG Screen",
+          "width":750,
+          "name":"LavaJUG Screen",
+          "left":250,
+          "top":115
+        },
+        {  
+          "height":150,
+          "source":"Webcam",
+          "width":230,
+          "name":"Webcam",
+          "left":10,
+          "top":115
+        },
+        {  
+          "height":390,
+          "source":"Event Informations",
+          "width":230,
+          "name":"Informations",
+          "left":10,
+          "top":275
+        }
+      ],
+      "name":"Introducing"
+    },  
+    {  
+      "layers":[  
+        {  
+          "height":550,
+          "source":"Speaker Screen",
+          "width":750,
+          "name":"Speaker Screen",
+          "left":250,
+          "top":115
+        },
+        {  
+          "height":150,
+          "source":"Webcam",
+          "width":230,
+          "name":"Webcam",
+          "left":10,
+          "top":115
+        },
+        {  
+          "height":390,
+          "source":"Event Informations",
+          "width":230,
+          "name":"Informations",
+          "left":10,
+          "top":275
+        }
+      ],
+      "name":"Slides preferred"
+    },
+      {  
+      "layers":[  
+        {  
+          "height":550,
+          "source":"Webcam",
+          "width":750,
+          "name":"Webcam",
+          "left":250,
+          "top":115
+        },
+        {  
+          "height":390,
+          "source":"Event Informations",
+          "width":230,
+          "name":"Informations",
+          "left":10,
+          "top":275
+        },
+        {  
+          "height":150,
+          "source":"Speaker Screen",
+          "width":230,
+          "name":"Speaker Screen",
+          "left":10,
+          "top":115
+        }
+      ],
+      "name":"Speaker preferred"
+    }
+  ],
+  "sources":[  
+    {  
+      "name":"Speaker Screen",
+      "type":"remote",
+      "url":"http:\/\/192.168.1.1:8000\/screens\/0"
+    }, 
+    {  
+      "name":"LavaJUG Screen",
+      "type":"remote",
+      "url":"http:\/\/192.168.1.2:8000\/screens\/0"
+    },
+    {  
+      "file":"images\/infos.png",
+      "name":"Event Informations",
+      "type":"image"
+    },    
+    {  
+      "file":"images\/waiting.png",
+      "name":"Waiting Picture",
+      "type":"image"
+    },
+    {  
+      "file":"images\/starting.png",
+      "name":"Starting Picture",
+      "type":"image"
+    },   
+    {  
+      "file":"images\/sponsors.png",
+      "name":"Sponsors Picture",
+      "type":"image"
+    },      
+    {  
+      "name":"Webcam",
+      "device":"USB2.0 HD UVC WebCam \/dev\/video0",
+      "type":"webcam"
+    }
+  ]
+}
